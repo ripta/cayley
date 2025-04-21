@@ -5,11 +5,11 @@ ARG VERSION=v0.8.x-dev
 # Create filesystem for minimal image
 WORKDIR /fs
 
-RUN mkdir -p etc/ssl/certs lib/x86_64-linux-gnu tmp bin data; \
+RUN mkdir -p etc/ssl/certs lib/$(uname -m)-linux-gnu tmp bin data; \
     # Copy CA Certificates
     cp /etc/ssl/certs/ca-certificates.crt etc/ssl/certs/ca-certificates.crt; \
     # Copy C standard library
-    cp /lib/x86_64-linux-gnu/libc.* lib/x86_64-linux-gnu/
+    cp /lib/$(uname -m)-linux-gnu/libc.* lib/$(uname -m)-linux-gnu/
 
 # Set up workdir for compiling
 WORKDIR /src
@@ -19,7 +19,7 @@ COPY go.mod go.sum ./
 RUN go mod download
 
 # Add all the other files
-ADD . .
+COPY . .
 
 # Pass a Git short SHA as build information to be used for displaying version
 RUN GIT_SHA=$(git rev-parse --short=12 HEAD); \
