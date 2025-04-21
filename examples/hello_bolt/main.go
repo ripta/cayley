@@ -9,7 +9,7 @@ import (
 
 	"github.com/cayleygraph/cayley"
 	"github.com/cayleygraph/cayley/graph"
-	_ "github.com/cayleygraph/cayley/graph/kv/bolt"
+	_ "github.com/cayleygraph/cayley/graph/kv/bbolt"
 	"github.com/cayleygraph/quad"
 )
 
@@ -23,18 +23,18 @@ func main() {
 	defer os.RemoveAll(tmpdir) // clean up
 
 	// Initialize the database
-	err = graph.InitQuadStore("bolt", tmpdir, nil)
+	err = graph.InitQuadStore("bbolt", tmpdir, nil)
 	if err != nil {
 		log.Fatal(err)
 	}
 
 	// Open and use the database
-	store, err := cayley.NewGraph("bolt", tmpdir, nil)
+	store, err := cayley.NewGraph("bbolt", tmpdir, nil)
 	if err != nil {
 		log.Fatalln(err)
 	}
 
-	store.AddQuad(quad.Make("phrase of the day", "is of course", "Hello BoltDB!", "demo graph"))
+	store.AddQuad(quad.Make("phrase of the day", "is of course", "Hello BBolt!", "demo graph"))
 
 	// Now we create the path, to get to our data
 	p := cayley.StartPath(store, quad.String("phrase of the day")).Out(quad.String("is of course"))

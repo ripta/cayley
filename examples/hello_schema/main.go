@@ -10,7 +10,7 @@ import (
 
 	"github.com/cayleygraph/cayley"
 	"github.com/cayleygraph/cayley/graph"
-	_ "github.com/cayleygraph/cayley/graph/kv/bolt"
+	_ "github.com/cayleygraph/cayley/graph/kv/bbolt"
 	"github.com/cayleygraph/cayley/schema"
 	"github.com/cayleygraph/quad"
 	"github.com/cayleygraph/quad/voc"
@@ -63,11 +63,11 @@ func main() {
 	defer os.RemoveAll(tmpdir) // clean up
 
 	// Initialize the database
-	err = graph.InitQuadStore("bolt", tmpdir, nil)
+	err = graph.InitQuadStore("bbolt", tmpdir, nil)
 	checkErr(err)
 
 	// Open and use the database
-	store, err := cayley.NewGraph("bolt", tmpdir, nil)
+	store, err := cayley.NewGraph("bbolt", tmpdir, nil)
 	checkErr(err)
 	defer store.Close()
 	qw := graph.NewWriter(store)
