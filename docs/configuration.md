@@ -12,7 +12,7 @@ Cayley can be configured using configuration file written in YAML / JSON or by p
 
 ## Recommended Configuration
 
-By default, Cayley is using the `memstore` store. `memstore` works best for datasets that can fit into the memory of the machine and workloads which doesn't require persistency. For large datasets and/or workloads with require persistency it is recommended to use the `bolt` store.
+By default, Cayley is using the `memstore` store. `memstore` works best for datasets that can fit into the memory of the machine and workloads which doesn't require persistency. For large datasets and/or workloads with require persistency it is recommended to use the `bbolt` store.
 
 ## Configuration Options
 
@@ -31,7 +31,7 @@ Determines the type of the underlying database. Options include:
 
 * `btree`: An in-memory store, used mostly to quickly verify KV backend functionality.
 * `leveldb`: A persistent on-disk store backed by [LevelDB](https://github.com/google/leveldb).
-* `bolt`: Stores the graph data on-disk in a [Bolt](https://github.com/boltdb/bolt) file. Uses more disk space and memory than LevelDB for smaller stores, but is often faster to write to and comparable for large ones, with faster average query times.
+* `bbolt`: Stores the graph data on-disk in a [bbolt](https://github.com/etcd-io/bbolt) file. Uses more disk space and memory than LevelDB for smaller stores, but is often faster to write to and comparable for large ones, with faster average query times.
 
 **NoSQL backends**
 
@@ -59,7 +59,7 @@ Where does the database actually live? Dependent on the type of database. For ea
 
 * `memstore`: Path parameter is not supported.
 * `leveldb`: Directory to hold the LevelDB database files.
-* `bolt`: Path to the persistent single Bolt database file.
+* `bbolt`: Path to the persistent single bbolt database file.
 * `mongo`: "hostname:port" of the desired MongoDB server. More options can be provided in [mgo](https://godoc.org/github.com/globalsign/mgo#Dial) address format.
 * `elastic`: `http://host:port` of the desired ElasticSearch server.
 * `couch`: `http://user:pass@host:port/dbname` of the desired CouchDB server.
@@ -104,7 +104,7 @@ The size in MiB of the LevelDB write cache. Increasing this number allows for mo
 
 The size in MiB of the LevelDB block cache. Increasing this number uses more memory to maintain a bigger cache of quad blocks for better performance.
 
-#### Bolt
+#### bbolt
 
 **`nosync`**
 
