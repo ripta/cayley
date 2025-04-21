@@ -11,7 +11,9 @@ import (
 func init() {
 	for _, r := range kv.List() {
 		switch r.Name {
-		case "bolt", "bbolt":
+		case "bolt":
+			panic("Legacy 'bolt' backend can no longer be compiled in") // Replaced with bbolt
+		case "bbolt":
 			continue // legacy: register manually; see comments in the bolt package
 		}
 		r := r

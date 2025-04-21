@@ -1,6 +1,6 @@
 store:
   # backend to use
-  backend: bolt
+  backend: bbolt
   # address or path for the database
   address: "./cayley.db"
   # open database in read-only mode
